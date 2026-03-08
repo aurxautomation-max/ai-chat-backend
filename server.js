@@ -8,12 +8,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// OpenAI API setup
+// OpenAI setup
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// Chat API endpoint
+// Chat endpoint
 app.post("/chat", async (req, res) => {
   try {
 
@@ -32,19 +32,22 @@ app.post("/chat", async (req, res) => {
     });
 
   } catch (error) {
+
     console.error(error);
+
     res.status(500).json({
-      error: "Something went wrong"
+      error: "AI request failed"
     });
+
   }
 });
 
-// Root route (for testing)
+// Root test route
 app.get("/", (req, res) => {
-  res.send("AI Chat Backend Running");
+  res.send("AI Chat Server Running");
 });
 
-// IMPORTANT for Railway
+// Railway dynamic port
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
